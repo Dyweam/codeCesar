@@ -56,8 +56,20 @@ def cesarCode():
     listCap=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
     message = entry_message.get()
-    cle = int(entry_cle.get())
+
     message_code = str()
+
+    if entry_cle.get()=='':
+        label_crypted['text'] = "Il faut saisir une clé de chiffrement"
+        label_crypted['fg'] = "red"
+        return
+
+    if not entry_cle.get().isnumeric():
+        label_crypted['text'] = "La clé doit être un nombre"
+        label_crypted['fg'] = "red"
+        return
+
+    cle = int(entry_cle.get())
 
     for lettre in message:
         if lettre not in listMin and lettre not in listCap:
@@ -76,6 +88,7 @@ def cesarCode():
                             message_code += str(listCap[(i + cle) % 26])
 
     label_crypted['text'] = message_code
+    label_crypted['fg'] = "green"
 
 #Bouton "submit" afin de crypter le message
 bt_submit = Button(frame, text = "Crypter", font = ("Arial", 12), command = cesarCode)
