@@ -55,38 +55,50 @@ def cesarCode():
     #listMin de l'alphabet en majuscules
     listCap=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
+    #La variable message prend comme valeur ce qui a été entré dans la textbox "entry_message"
     message = entry_message.get()
 
+    #Initialisation de la variable message_code, en indiquant que c'est un string
     message_code = str()
 
+    #Si la zone d'entrée de la clé est vide
     if entry_cle.get()=='':
         label_crypted['text'] = "Il faut saisir une clé de chiffrement"
         label_crypted['fg'] = "red"
         return
 
+    #Si la zone d'entrée de la clé contient autre chause qu'un nombre
     if not entry_cle.get().isnumeric():
         label_crypted['text'] = "La clé doit être un nombre"
         label_crypted['fg'] = "red"
         return
 
+    #La variable clé prend comme valeur ce qui a été entré dans la textbox "entry_cle"
     cle = int(entry_cle.get())
 
+    #Pour chaque caractère dans le message
     for lettre in message:
+        #Si le caractère ne fait pas partie des deux listes de lettres
         if lettre not in listMin and lettre not in listCap:
             message_code += lettre
         else:
             for alphabetMinLettre in listMin:
+                #Si la lettre est une lettre minuscule
                 if(lettre == alphabetMinLettre):
                     for i in range (len(listMin)):
                         if listMin[i]==lettre:
+                            #Ajout de la lettre minuscule crypté dans la variable message_code
                             message_code += str(listMin[(i+cle) % 26])
             
             for alphabetCapLettre in listCap:
+                #Si la lettre est une majuscule
                 if(lettre == alphabetCapLettre):
                     for i in range (len(listCap)):
                         if listCap[i]==lettre:
+                             #Ajout de la lettre majuscule crypté dans la variable message_code
                             message_code += str(listCap[(i + cle) % 26])
 
+    #Affichage du message crypté
     label_crypted['text'] = message_code
     label_crypted['fg'] = "green"
 
