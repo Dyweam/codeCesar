@@ -47,22 +47,24 @@ FILETYPES = [ ("text files", "*.txt") ]
 #Définition de la variable "filename" qui permettra de récupérer le chemin du fichier .txt
 filename = StringVar(window)
 
-#Fonction permettant de récupérer le chemin du fichier au format .txt
+#Méthode permettant de récupérer le chemin du fichier au format .txt
 def set_filename():
     filename.set(askopenfilename(filetypes=FILETYPES))
-    print(filename.get())
 
 #Bouton permettant d'aller chercher un fichier au format .txt  
 button_filePath = Button(frame, text='Parcourir', command=set_filename)
 #Placement du bouton dans la fenêtre du logiciel
 button_filePath.pack()
 
-#Ouverture du fichier au format .txt désiré
+#Fonction permettant l'ouverture du fichier au format .txt désiré
 def read_filename():
-    #La variable fileOpen ouvre le fichier choisi en mode lecture
-    fileOpen = open(filename.get(), 'r')
-    #Retourne le contenu du fichier texte
-    return fileOpen.read()
+    if filename.get() == '':
+        return
+    else:
+        #La variable fileOpen ouvre le fichier choisi en mode lecture
+        fileOpen = open(filename.get(), 'r')
+        #Retourne le contenu du fichier texte
+        return fileOpen.read()
 
 #Label du message à crypter
 label_cle = Label(frame, text = "Entrez votre clé de cryptage : ", font = ("Arial", 12))
@@ -78,7 +80,7 @@ label_crypted = Label(frame, text = "Votre message crypté apparaîtra ici", fon
 #Placement du label dans la fenêtre du logiciel
 label_crypted.pack()
 
-#Fonction du code césar
+#Méthode du code césar
 def cesarCode():
     #listMin de l'alphabet en minuscules
     listMin=['a','b','c','d','e','f','g','h','i','j','k','m','n','l','o','p','q','r','s','t','u','v','w','x','y','z']
@@ -95,6 +97,11 @@ def cesarCode():
     else:
         #La variable message prend comme valeur le contenu du fichier texte selectionné
         message = read_filename()
+
+    if message is None:
+        label_crypted['text'] = "Il faut entrer un texte ou selectionner un fichier .txt"
+        label_crypted['fg'] = "red"
+        return
 
     #Initialisation de la variable message_code, en indiquant que c'est un string
     message_code = str()
