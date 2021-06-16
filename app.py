@@ -58,6 +58,7 @@ button_filePath.pack()
 
 #Fonction permettant l'ouverture du fichier au format .txt désiré
 def read_filename():
+    #Si il n'y a pas de fichier selectionné, alors return
     if filename.get() == '':
         return
     else:
@@ -98,6 +99,7 @@ def cesarCode():
         #La variable message prend comme valeur le contenu du fichier texte selectionné
         message = read_filename()
 
+    #Si aucun texte n'est écrit ou et qu'aucun fichier .txt n'est renseigné, le logiciel renvoie un message à l'utilisateur
     if message is None:
         label_crypted['text'] = "Il faut entrer un texte ou selectionner un fichier .txt"
         label_crypted['fg'] = "red"
