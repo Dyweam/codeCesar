@@ -5,6 +5,8 @@
 
 #Importation de la bibliothèque Tkinter
 from tkinter import *
+#Importation d'un sous-module Tkinter
+from tkinter.filedialog import *
 
 #Création de la fenêtre du logiciel
 window = Tk()
@@ -35,6 +37,33 @@ entry_message = Entry(frame, font = ("Arial", 12))
 #Placement de la zone d'entrée de texte
 entry_message.pack()
 
+#Label du chemin de fichier à selectionner
+label_import = Label(frame, text = "Ou importez un fichier au format .txt : ", font = ("Arial", 12))
+#Placement du label dans la fenêtre du logiciel
+label_import.pack()
+
+#Définition de la variable "FILETYPES" (Le format du fichier devra être un .txt)
+FILETYPES = [ ("text files", "*.txt") ]
+#Définition de la variable "filename" qui permettra de récupérer le chemin du fichier .txt
+filename = StringVar(window)
+
+#Fonction permettant de récupérer le chemin du fichier au format .txt
+def set_filename():
+    filename.set(askopenfilename(filetypes=FILETYPES))
+    print(filename.get())
+
+#Bouton permettant d'aller chercher un fichier au format .txt  
+button_filePath = Button(frame, text='Parcourir', command=set_filename)
+#Placement du bouton dans la fenêtre du logiciel
+button_filePath.pack()
+
+#Ouverture du fichier au format .txt désiré
+def read_filename():
+    #La variable fileOpen ouvre le fichier choisi en mode lecture
+    fileOpen = open(filename.get(), 'r')
+    #Retourne le contenu du fichier texte
+    return fileOpen.read()
+
 #Label du message à crypter
 label_cle = Label(frame, text = "Entrez votre clé de cryptage : ", font = ("Arial", 12))
 #Placement du label dans la fenêtre du logiciel
@@ -46,6 +75,7 @@ entry_cle.pack()
 
 #Label du message crypté
 label_crypted = Label(frame, text = "Votre message crypté apparaîtra ici", font = ("Arial", 12), fg = "green")
+#Placement du label dans la fenêtre du logiciel
 label_crypted.pack()
 
 #Fonction du code césar
@@ -55,8 +85,16 @@ def cesarCode():
     #listMin de l'alphabet en majuscules
     listCap=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
-    #La variable message prend comme valeur ce qui a été entré dans la textbox "entry_message"
-    message = entry_message.get()
+    #Initialisation de la variable "message" en indiquant qu'il s'agit d'un string
+    message = str()
+
+    #Si la zone d'entrée de texte n'est pas vide
+    if entry_message.get() != '':
+        #La variable message prend comme valeur ce qui a été entré dans la textbox "entry_message"
+        message = entry_message.get()
+    else:
+        #La variable message prend comme valeur le contenu du fichier texte selectionné
+        message = read_filename()
 
     #Initialisation de la variable message_code, en indiquant que c'est un string
     message_code = str()
