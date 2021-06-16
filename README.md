@@ -4,3 +4,4 @@ Collaborateurs : Pierre VASSEUR / Jawad EL ABDI
 
 Réalisation du programme en python de chiffrement fait par Jawad El Abdi
 Réalisation du code pour Tkinter & adaptation du programme de chiffrement fait par Pierre VASSEUR
+Réalisation du code permettant de lire et de crypter un fichier texte fait par Pierre VASSEUR
