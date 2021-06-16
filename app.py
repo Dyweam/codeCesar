@@ -63,7 +63,7 @@ def read_filename():
         return
     else:
         #La variable fileOpen ouvre le fichier choisi en mode lecture
-        fileOpen = open(filename.get(), 'r')
+        fileOpen = open(filename.get(), 'r', encoding='utf8')
         #Retourne le contenu du fichier texte
         return fileOpen.read()
 
