@@ -50,6 +50,7 @@ filename = StringVar(window)
 #Méthode permettant de récupérer le chemin du fichier au format .txt
 def set_filename():
     filename.set(askopenfilename(filetypes=FILETYPES))
+    label_path['text'] = filename.get()
 
 #Bouton permettant d'aller chercher un fichier au format .txt  
 button_filePath = Button(frame, text='Parcourir', command=set_filename)
@@ -66,6 +67,11 @@ def read_filename():
         fileOpen = open(filename.get(), 'r', encoding='utf8')
         #Retourne le contenu du fichier texte
         return fileOpen.read()
+
+#Label du chemin du fichier
+label_path = Label(frame, text = "", font = ("Arial", 12), fg = "blue")
+#Placement du label dans la fenêtre du logiciel
+label_path.pack()
 
 #Label du message à crypter
 label_cle = Label(frame, text = "Entrez votre clé de cryptage : ", font = ("Arial", 12))
